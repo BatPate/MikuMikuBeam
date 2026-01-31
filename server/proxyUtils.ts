@@ -3,14 +3,19 @@ import { AttackMethod, Proxy, ProxyProtocol } from "./lib";
 const DEFAULT_HTTP_PORT = 8080;
 const DEFAULT_PROTOCOL: ProxyProtocol = "http";
 
-const COMMON_PORTS: { [port: number]: ProxyProtocol } = {
-  80: "http",
-  443: "https",
-  1080: "socks5",
-  1081: "socks4",
-  8080: "http",
-  8443: "https",
+export const COMMON_PORTS: Record<number, ProxyProtocol[]> = {
+  80: ["http"],
+  443: ["https"],
+  1080: ["socks5"],
+  1081: ["socks4"],
+  8080: ["http"],
+  8443: ["https"],
 };
+
+export const POSSIBLE_ANY_PORT: ProxyProtocol[] = [
+  "socks5",
+  "socks4",
+];
 
 const METHODS: { [key in AttackMethod]: ProxyProtocol[] } = {
   http_flood: ["http", "https", "socks4", "socks5"],
@@ -18,6 +23,7 @@ const METHODS: { [key in AttackMethod]: ProxyProtocol[] } = {
   http_slowloris: ["socks4", "socks5"],
   tcp_flood: ["socks4", "socks5"],
   minecraft_ping: ["socks4", "socks5"],
+  udp_flood: ["socks4", "socks5"],
 };
 
 /**
